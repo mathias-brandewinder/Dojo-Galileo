@@ -19,20 +19,20 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <Tailcalls>false</Tailcalls>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\build</OutputPath>
     <DefineConstants>TRACE;DEBUG;__64BIT__</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\Galileo.XML</DocumentationFile>
+    <DocumentationFile>..\build\Galileo.XML</DocumentationFile>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <Tailcalls>true</Tailcalls>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\build</OutputPath>
     <DefineConstants>TRACE;__64BIT__</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\Galileo.XML</DocumentationFile>
+    <DocumentationFile>..\build\Galileo.XML</DocumentationFile>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
@@ -59,7 +59,8 @@
     <Error Condition="!Exists('..\packages\Ferop.1.0.0-beta6\build\Ferop.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Ferop.1.0.0-beta6\build\Ferop.targets'))" />
   </Target>
   <ItemGroup>
-    <Compile Include="Planets.fs" />
+    <Compile Include="Galileo.fsi" />
+    <Compile Include="Galileo.fs" />
     <None Include="Script.fsx" />
     <None Include="f.fragment">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -81,10 +82,14 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors">
+      <HintPath>..\packages\System.Numerics.Vectors.1.1.6-beta\lib\portable-net45+win8\System.Numerics.Vectors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy /f "$(ProjectDir)..\lib\win\x64\SDL2.dll" "$(TargetDir)" /q /y
-xcopy /f "$(ProjectDir)..\lib\win\x64\glew32.dll" "$(TargetDir)" /q /y</PostBuildEvent>
+    <PostBuildEvent>xcopy /f "$(ProjectDir)..\lib\win\$(PlatformTarget)\SDL2.dll" "$(TargetDir)" /q /y
+xcopy /f "$(ProjectDir)..\lib\win\$(PlatformTarget)\glew32.dll" "$(TargetDir)" /q /y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
